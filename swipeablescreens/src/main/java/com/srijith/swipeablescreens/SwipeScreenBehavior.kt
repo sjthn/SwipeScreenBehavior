@@ -19,6 +19,7 @@ open class SwipeScreenBehavior<V : View> : CoordinatorLayout.Behavior<V>(), Swip
     private var totalDrag = 0f
     private var isDragDown = false
     private var isDragUp = false
+    private var isDismissed = false
 
     override fun onInterceptTouchEvent(
         parent: CoordinatorLayout?,
@@ -29,6 +30,8 @@ open class SwipeScreenBehavior<V : View> : CoordinatorLayout.Behavior<V>(), Swip
     }
 
     override fun onTouchEvent(parent: CoordinatorLayout?, child: V, ev: MotionEvent?): Boolean {
+        if (isDismissed) return false
+
         var consumed = false
         when (ev?.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -71,7 +74,7 @@ open class SwipeScreenBehavior<V : View> : CoordinatorLayout.Behavior<V>(), Swip
         axes: Int,
         type: Int
     ): Boolean {
-        return (axes and ViewCompat.SCROLL_AXIS_VERTICAL) != 0 && type == ViewCompat.TYPE_TOUCH
+        return (axes and ViewCompat.SCROLL_AXIS_VERTICAL) != 0 && type == ViewCompat.TYPE_TOUCH && !isDismissed
     }
 
     override fun onNestedPreScroll(
@@ -124,6 +127,7 @@ open class SwipeScreenBehavior<V : View> : CoordinatorLayout.Behavior<V>(), Swip
 
     override fun dismissListener(parent: View?) {
         if (parent != null) {
+            isDismissed = true
             parent.animate().scaleY(0.2f).scaleX(0.2f).alpha(0f).withEndAction {
                 if (parent.context != null) {
                     (parent.context as Activity).finish()
