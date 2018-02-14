@@ -39,14 +39,14 @@ open class SwipeScreenBehavior<V : View> : CoordinatorLayout.Behavior<V>(), Swip
                 touchStartY = ev.y
             }
             MotionEvent.ACTION_MOVE -> {
-                if (parent != null) {
+                parent?.let {
                     totalDrag = -(touchStartY - ev.y)
 
                     dragAndScaleView(totalDrag, parent)
                 }
             }
             MotionEvent.ACTION_UP -> {
-                if (parent != null) {
+                parent?.let {
                     if (shouldDismissScreen(parent)) {
                         dismissListener(parent)
                     } else {
@@ -126,10 +126,10 @@ open class SwipeScreenBehavior<V : View> : CoordinatorLayout.Behavior<V>(), Swip
     }
 
     override fun dismissListener(parent: View?) {
-        if (parent != null) {
+        parent?.let {
             isDismissed = true
             parent.animate().scaleY(0.2f).scaleX(0.2f).alpha(0f).withEndAction {
-                if (parent.context != null) {
+                parent.context?.let {
                     (parent.context as Activity).finish()
                 }
             }
@@ -152,7 +152,7 @@ open class SwipeScreenBehavior<V : View> : CoordinatorLayout.Behavior<V>(), Swip
     }
 
     private fun shouldDismissScreen(parent: View?): Boolean {
-        if (parent != null) {
+        parent?.let {
             if (abs(parent.y) > parent.height / swipeThreshold) {
                 return true
             }
