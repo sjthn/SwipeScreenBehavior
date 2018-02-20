@@ -1,8 +1,9 @@
 package com.srijith.swipeablescreens
 
-import android.app.Activity
+import android.content.Context
 import android.support.design.widget.CoordinatorLayout
 import android.support.v4.view.ViewCompat
+import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import kotlin.math.abs
@@ -10,7 +11,8 @@ import kotlin.math.abs
 /**
  * Created by Srijith on 2/8/2018.
  */
-open class SwipeScreenBehavior<V : View> : CoordinatorLayout.Behavior<V>(), SwipeCallback {
+open class SwipeScreenBehavior<V : View>(context: Context?, attrs: AttributeSet?) :
+    CoordinatorLayout.Behavior<V>(context, attrs) {
 
     private val friction = 0.25f
     private val swipeThreshold = 14
@@ -20,6 +22,9 @@ open class SwipeScreenBehavior<V : View> : CoordinatorLayout.Behavior<V>(), Swip
     private var isDragDown = false
     private var isDragUp = false
     private var isDismissed = false
+    private lateinit var dismissCallback: SwipeCallback
+
+    constructor() : this(null, null)
 
     override fun onInterceptTouchEvent(
         parent: CoordinatorLayout?,
@@ -48,7 +53,8 @@ open class SwipeScreenBehavior<V : View> : CoordinatorLayout.Behavior<V>(), Swip
             MotionEvent.ACTION_UP -> {
                 parent?.let {
                     if (shouldDismissScreen(parent)) {
-                        dismissListener(parent)
+                        isDismissed = true
+                        dismissCallback.dismissListener(parent)
                     } else {
                         if (parent.y != 0f) {
                             parent.animate().translationY(0f).scaleX(1f).scaleY(1f)
@@ -115,7 +121,8 @@ open class SwipeScreenBehavior<V : View> : CoordinatorLayout.Behavior<V>(), Swip
     ) {
         totalDrag = 0f
         if (shouldDismissScreen(parent)) {
-            dismissListener(parent)
+            isDismissed = true
+            dismissCallback.dismissListener(parent)
         } else {
             if (parent.y != 0f) {
                 parent.animate().translationY(0f).scaleX(1f).scaleY(1f)
@@ -125,15 +132,8 @@ open class SwipeScreenBehavior<V : View> : CoordinatorLayout.Behavior<V>(), Swip
         isDragUp = false
     }
 
-    override fun dismissListener(parent: View?) {
-        parent?.let {
-            isDismissed = true
-            parent.animate().scaleY(0.2f).scaleX(0.2f).alpha(0f).withEndAction {
-                parent.context?.let {
-                    (parent.context as Activity).finish()
-                }
-            }
-        }
+    fun setOnDismissListener(callback: SwipeCallback) {
+        dismissCallback = callback
     }
 
     private fun dragAndScaleNestedScroller(dy: Int, parent: CoordinatorLayout) {

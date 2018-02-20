@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SwipeableScreens</string>
+    <string name="swipe_behavior">com.srijith.swipeablescreens.SwipeScreenBehavior</string>
 </resources>
