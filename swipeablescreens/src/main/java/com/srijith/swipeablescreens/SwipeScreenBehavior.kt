@@ -47,7 +47,7 @@ open class SwipeScreenBehavior<V : View>(context: Context?, attrs: AttributeSet?
                 parent?.let {
                     totalDrag = -(touchStartY - ev.y)
 
-                    dragAndScaleView(totalDrag, parent)
+                    if (totalDrag != 0f) dragAndScaleView(totalDrag, parent)
                 }
             }
             MotionEvent.ACTION_UP -> {
