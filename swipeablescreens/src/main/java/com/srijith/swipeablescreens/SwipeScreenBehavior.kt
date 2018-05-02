@@ -22,7 +22,7 @@ open class SwipeScreenBehavior<V : View>(context: Context?, attrs: AttributeSet?
     private var isDragDown = false
     private var isDragUp = false
     private var isDismissed = false
-    private lateinit var dismissCallback: SwipeCallback
+    private var dismissCallback: SwipeCallback? = null
 
     constructor() : this(null, null)
 
@@ -51,16 +51,7 @@ open class SwipeScreenBehavior<V : View>(context: Context?, attrs: AttributeSet?
                 }
             }
             MotionEvent.ACTION_UP -> {
-                parent?.let {
-                    if (shouldDismissScreen(parent)) {
-                        isDismissed = true
-                        dismissCallback.dismissListener(parent)
-                    } else {
-                        if (parent.y != 0f) {
-                            parent.animate().translationY(0f).scaleX(1f).scaleY(1f)
-                        }
-                    }
-                }
+                parent?.let { handleOnActionUp(it) }
                 consumed = false
                 resetValues()
             }
@@ -70,6 +61,17 @@ open class SwipeScreenBehavior<V : View>(context: Context?, attrs: AttributeSet?
             }
         }
         return consumed
+    }
+
+    private fun handleOnActionUp(parent: CoordinatorLayout) {
+        if (shouldDismissScreen(parent)) {
+            isDismissed = true
+            dismissCallback?.dismissListener(parent)
+        } else {
+            if (parent.y != 0f) {
+                parent.animate().translationY(0f).scaleX(1f).scaleY(1f)
+            }
+        }
     }
 
     override fun onStartNestedScroll(
@@ -122,7 +124,7 @@ open class SwipeScreenBehavior<V : View>(context: Context?, attrs: AttributeSet?
         totalDrag = 0f
         if (shouldDismissScreen(parent)) {
             isDismissed = true
-            dismissCallback.dismissListener(parent)
+            dismissCallback?.dismissListener(parent)
         } else {
             if (parent.y != 0f) {
                 parent.animate().translationY(0f).scaleX(1f).scaleY(1f)
