@@ -71,7 +71,7 @@ open class SwipeScreenBehavior<V : View>(context: Context?, attrs: AttributeSet?
                 parent?.let {
                     totalDrag = -(touchStartY - ev.y)
 
-                    if (totalDrag != 0f) dragAndScaleView(totalDrag, parent)
+                    if (totalDrag != 0f) dragAndScaleView(totalDrag * friction, parent)
                 }
             }
             MotionEvent.ACTION_UP -> {
@@ -166,13 +166,11 @@ open class SwipeScreenBehavior<V : View>(context: Context?, attrs: AttributeSet?
         if (dy < 0) isDragDown = true else isDragUp = true
 
         totalDrag += -(dy) * friction
-        parent.translationY = totalDrag
-        parent.scaleX = 0.95f
-        parent.scaleY = 0.95f
+        dragAndScaleView(totalDrag, parent)
     }
 
     private fun dragAndScaleView(dy: Float, parent: CoordinatorLayout) {
-        parent.translationY = dy * friction
+        parent.translationY = dy
         parent.scaleX = 0.95f
         parent.scaleY = 0.95f
     }
