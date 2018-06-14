@@ -171,8 +171,8 @@ open class SwipeScreenBehavior<V : View>(context: Context?, attrs: AttributeSet?
 
     private fun dragAndScaleView(dy: Float, parent: CoordinatorLayout) {
         parent.translationY = dy
-        parent.scaleX = 0.95f
-        parent.scaleY = 0.95f
+//        parent.scaleX = 0.95f
+//        parent.scaleY = 0.95f
     }
 
     private fun shouldDismissScreen(parent: View?): Boolean {
