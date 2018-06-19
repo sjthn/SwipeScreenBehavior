@@ -30,6 +30,25 @@ Then to get a callback when the screen needs to be dismissed add the below code:
 })
 ```
 
+##Usage
+
+####Maven
+
+```
+<dependency>
+  <groupId>com.sjthn.swipeablescreens</groupId>
+  <artifactId>swipeablescreens</artifactId>
+  <version>1.0.0</version>
+  <type>pom</type>
+</dependency>
+```
+
+####Gradle
+
+```
+implementation 'com.sjthn.swipeablescreens:swipeablescreens:1.0.0'
+```
+
 ##Sample
 Checkout the [sample project](https://github.com/sjthn/SwipeScreenBehavior/tree/master/example) for how this works.
 
