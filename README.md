@@ -2,11 +2,13 @@
 
 A CoordinatorLayout Behavior for implementing swipe screen transition behavior.
 
-##Usage
+![screenshot](screenshots/swipescreenbehavior.gif)
+
+## Usage
 
 This CoordinatorLayout Behavior can be added either through XML or code.
 
-####XML
+#### XML
 
 To add this Behavior, add the following line to the direct child of the CoordinatorLayout:
 
@@ -14,7 +16,7 @@ To add this Behavior, add the following line to the direct child of the Coordina
 app:layout_behavior="@string/swipe_behavior"
 ```
 
-####Code
+#### Code
 ```
 val layoutParams = constraintLayout.layoutParams as CoordinatorLayout.LayoutParams
 layoutParams.behavior = SwipeScreenBehavior<ConstraintLayout>()
@@ -30,9 +32,9 @@ Then to get a callback when the screen needs to be dismissed add the below code:
 })
 ```
 
-##Usage
+## Usage
 
-####Maven
+#### Maven
 
 ```
 <dependency>
@@ -43,16 +45,16 @@ Then to get a callback when the screen needs to be dismissed add the below code:
 </dependency>
 ```
 
-####Gradle
+#### Gradle
 
 ```
 implementation 'com.sjthn.swipeablescreens:swipeablescreens:1.0.0'
 ```
 
-##Sample
+## Sample
 Checkout the [sample project](https://github.com/sjthn/SwipeScreenBehavior/tree/master/example) for how this works.
 
-##License
+## License
 ```
 MIT License
 
