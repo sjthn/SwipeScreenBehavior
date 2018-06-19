@@ -28,7 +28,6 @@ import android.app.Activity
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.srijith.swipeablescreens.SwipeCallback
 import com.srijith.swipeablescreens.SwipeScreenBehavior
@@ -47,25 +46,11 @@ class MainActivity : AppCompatActivity() {
                 exitActivity(parent)
             }
         })
-
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = RecyclerViewAdapter(getUserNames())
     }
 
-    private fun getUserNames(): MutableList<String> {
-        val mutableList = mutableListOf<String>()
-        for (a in 0..29)
-            mutableList.add(a, "User ${a + 1}")
-        return mutableList
-    }
-
-    private fun exitActivity(parent: View?) {
+    fun exitActivity(parent: View?) {
         parent?.let {
-            parent.animate().scaleY(0.2f).scaleX(0.2f).alpha(0f).withEndAction {
-                parent.context?.let {
-                    (parent.context as Activity).finish()
-                }
-            }
+            (parent.context as Activity).finish()
         }
     }
 }

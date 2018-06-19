@@ -25,19 +25,30 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:actionBarStyle">@style/AppTheme.ActionBar</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/statusBarColor</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <style name="AppTheme.ActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
+        <item name="android:titleTextStyle">@style/AppTheme.ActionBar.Title</item>
+    </style>
+
+    <style name="AppTheme.ActionBar.Title" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="AppTheme.MainActivity" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/scrimBg</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
-
-    <style name="AppTheme.MainActivity">
-        <item name="android:windowBackground">@color/scrimBg</item>
     </style>
 
 </resources>

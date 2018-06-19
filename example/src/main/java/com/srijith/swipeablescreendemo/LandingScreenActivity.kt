@@ -35,6 +35,6 @@ class LandingScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing_screen)
 
-        button.setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
+        cardView.setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
     }
 }
