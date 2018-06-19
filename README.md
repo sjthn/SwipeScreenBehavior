@@ -32,7 +32,7 @@ Then to get a callback when the screen needs to be dismissed add the below code:
 })
 ```
 
-## Usage
+## Install
 
 #### Maven
 
